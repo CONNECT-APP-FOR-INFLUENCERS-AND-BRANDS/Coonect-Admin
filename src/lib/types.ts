@@ -15,6 +15,7 @@ export type CollaborationStatus =
   | 'CANCELLED'
 
 export type CancellationRequestStatus = 'PENDING' | 'APPROVED' | 'DENIED'
+export type PaymentReleaseRequestStatus = 'PENDING' | 'APPROVED' | 'DENIED'
 export type VerificationRequestStatus = 'PENDING' | 'APPROVED' | 'REJECTED'
 export type VerificationMethod = 'GST_DOCUMENT' | 'BUSINESS_REGISTRATION_DOCUMENT' | 'AADHAAR_EKYC'
 
@@ -23,6 +24,15 @@ export interface CancellationRequest {
   requestedByRole: Role
   reason: string
   status: CancellationRequestStatus
+  requestedAt: string
+  resolvedAt?: string | null
+  resolvedBy?: string | null
+  adminNote?: string | null
+}
+
+export interface PaymentReleaseRequest {
+  requestedBy: string
+  status: PaymentReleaseRequestStatus
   requestedAt: string
   resolvedAt?: string | null
   resolvedBy?: string | null
@@ -103,6 +113,7 @@ export interface Collaboration {
   influencer?: Influencer | null
   campaign?: { id: string; title: string } | null
   cancellationRequest?: CancellationRequest | null
+  paymentReleaseRequest?: PaymentReleaseRequest | null
   rating?: number | null
 }
 

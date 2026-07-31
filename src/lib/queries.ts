@@ -143,6 +143,14 @@ const COLLABORATION_FIELDS = /* GraphQL */ `
     resolvedBy
     adminNote
   }
+  paymentReleaseRequest {
+    requestedBy
+    status
+    requestedAt
+    resolvedAt
+    resolvedBy
+    adminNote
+  }
 `
 
 export const ADMIN_COLLABORATIONS_QUERY = /* GraphQL */ `
@@ -167,6 +175,24 @@ export const RESOLVE_CANCELLATION_REQUEST_MUTATION = /* GraphQL */ `
       id
       status
       cancellationRequest { status }
+    }
+  }
+`
+
+export const ADMIN_PAYMENT_RELEASE_REQUESTS_QUERY = /* GraphQL */ `
+  query AdminPaymentReleaseRequests($status: PaymentReleaseRequestStatus) {
+    getAdminPaymentReleaseRequests(status: $status) {
+      ${COLLABORATION_FIELDS}
+    }
+  }
+`
+
+export const RESOLVE_PAYMENT_RELEASE_REQUEST_MUTATION = /* GraphQL */ `
+  mutation ResolvePaymentReleaseRequest($collaborationId: ID!, $approve: Boolean!, $adminNote: String) {
+    resolvePaymentReleaseRequest(collaborationId: $collaborationId, approve: $approve, adminNote: $adminNote) {
+      id
+      status
+      paymentReleaseRequest { status }
     }
   }
 `

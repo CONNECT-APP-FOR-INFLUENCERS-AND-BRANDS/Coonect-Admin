@@ -5,6 +5,7 @@ import {
   Users,
   Handshake,
   Ban,
+  Banknote,
   ShieldCheck,
   LogOut,
 } from 'lucide-react'
@@ -17,6 +18,7 @@ const NAV_ITEMS = [
   { to: '/influencers', label: 'Influencers', icon: Users },
   { to: '/collaborations', label: 'Collaborations', icon: Handshake },
   { to: '/cancellation-requests', label: 'Cancellation Requests', icon: Ban },
+  { to: '/payment-release-requests', label: 'Payment Release Requests', icon: Banknote },
   { to: '/verification-requests', label: 'Verification Requests', icon: ShieldCheck },
 ]
 
