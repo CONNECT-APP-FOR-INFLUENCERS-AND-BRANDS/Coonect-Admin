@@ -10,6 +10,7 @@ import { Influencers } from '@/pages/Influencers'
 import { Collaborations } from '@/pages/Collaborations'
 import { CollaborationDetail } from '@/pages/CollaborationDetail'
 import { CancellationRequests } from '@/pages/CancellationRequests'
+import { PaymentReleaseRequests } from '@/pages/PaymentReleaseRequests'
 import { VerificationRequests } from '@/pages/VerificationRequests'
 
 function RequireAdmin({ children }: { children: React.ReactNode }) {
@@ -51,6 +52,7 @@ function AppRoutes() {
         <Route path="collaborations" element={<Collaborations />} />
         <Route path="collaborations/:id" element={<CollaborationDetail />} />
         <Route path="cancellation-requests" element={<CancellationRequests />} />
+        <Route path="payment-release-requests" element={<PaymentReleaseRequests />} />
         <Route path="verification-requests" element={<VerificationRequests />} />
       </Route>
       <Route path="*" element={<Navigate to="/" replace />} />
