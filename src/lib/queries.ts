@@ -20,10 +20,6 @@ export const OVERVIEW_STATS_QUERY = /* GraphQL */ `
       revenue
       newInfluencers
     }
-    getBrandTierDistribution {
-      tier
-      count
-    }
     getInfluencerTierDistribution {
       tier
       count

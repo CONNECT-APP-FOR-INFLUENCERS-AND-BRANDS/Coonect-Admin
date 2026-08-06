@@ -5,16 +5,20 @@ type Tone = 'neutral' | 'success' | 'warning' | 'destructive' | 'accent'
 
 const toneClasses: Record<Tone, string> = {
   neutral: 'bg-muted text-muted-foreground',
-  success: 'bg-success/15 text-success',
-  warning: 'bg-warning/15 text-warning',
-  destructive: 'bg-destructive/15 text-destructive',
+  success: 'bg-success/10 text-success',
+  warning: 'bg-warning/10 text-warning',
+  destructive: 'bg-destructive/10 text-destructive',
   accent: 'bg-accent text-accent-foreground',
 }
 
 export function Badge({ className, tone = 'neutral', ...props }: HTMLAttributes<HTMLSpanElement> & { tone?: Tone }) {
   return (
     <span
-      className={cn('inline-flex items-center rounded-full px-2.5 py-0.5 text-xs font-medium', toneClasses[tone], className)}
+      className={cn(
+        'inline-flex items-center rounded-full px-2.5 py-1 text-[11px] font-semibold',
+        toneClasses[tone],
+        className,
+      )}
       {...props}
     />
   )

@@ -1,5 +1,5 @@
 import { useMemo, useState } from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useLocation } from 'react-router-dom'
 import { useAdminQuery } from '@/hooks/useAdminQuery'
 import { ADMIN_COLLABORATIONS_QUERY } from '@/lib/queries'
 import type { Collaboration, CollaborationStatus } from '@/lib/types'
@@ -7,8 +7,9 @@ import { FullPageSpinner, ErrorState, EmptyState } from '@/components/ui/spinner
 import { Table, THead, TBody, TR, TH, TD } from '@/components/ui/table'
 import { StatusBadge } from '@/components/ui/badge'
 import { Select, Input } from '@/components/ui/input'
+import { PageHeader } from '@/components/ui/page-header'
 import { formatCurrency, formatDate } from '@/lib/utils'
-import { Search } from 'lucide-react'
+import { Handshake, Search } from 'lucide-react'
 
 interface Data {
   getAdminCollaborations: Collaboration[]
@@ -23,6 +24,7 @@ export function Collaborations() {
   const { data, loading, error } = useAdminQuery<Data>(ADMIN_COLLABORATIONS_QUERY)
   const [query, setQuery] = useState('')
   const [status, setStatus] = useState<string>('ALL')
+  const location = useLocation()
 
   const filtered = useMemo(() => {
     let list = data?.getAdminCollaborations ?? []
@@ -39,25 +41,26 @@ export function Collaborations() {
 
   return (
     <div className="flex flex-col gap-4">
-      <div className="flex items-center justify-between">
-        <div>
-          <h1 className="text-xl font-semibold">Collaborations</h1>
-          <p className="text-sm text-muted-foreground">{data?.getAdminCollaborations.length ?? 0} total</p>
-        </div>
-        <div className="flex items-center gap-2">
-          <Select value={status} onChange={(e) => setStatus(e.target.value)}>
-            {STATUS_OPTIONS.map((s) => (
-              <option key={s} value={s}>
-                {s === 'ALL' ? 'All statuses' : s.replaceAll('_', ' ')}
-              </option>
-            ))}
-          </Select>
-          <div className="relative w-56">
-            <Search className="absolute left-2.5 top-2.5 h-4 w-4 text-muted-foreground" />
-            <Input placeholder="Search…" value={query} onChange={(e) => setQuery(e.target.value)} className="pl-8" />
-          </div>
-        </div>
-      </div>
+      <PageHeader
+        icon={Handshake}
+        title="Collaborations"
+        description={`${data?.getAdminCollaborations.length ?? 0} total`}
+        actions={
+          <>
+            <Select value={status} onChange={(e) => setStatus(e.target.value)}>
+              {STATUS_OPTIONS.map((s) => (
+                <option key={s} value={s}>
+                  {s === 'ALL' ? 'All statuses' : s.replaceAll('_', ' ')}
+                </option>
+              ))}
+            </Select>
+            <div className="relative w-56">
+              <Search className="absolute left-2.5 top-2.5 h-4 w-4 text-muted-foreground" />
+              <Input placeholder="Search…" value={query} onChange={(e) => setQuery(e.target.value)} className="pl-8" />
+            </div>
+          </>
+        }
+      />
 
       {filtered.length === 0 ? (
         <EmptyState message="No collaborations match this filter." />
@@ -75,9 +78,9 @@ export function Collaborations() {
           </THead>
           <TBody>
             {filtered.map((c) => (
-              <TR key={c.id} className="hover:bg-muted/50">
+              <TR key={c.id}>
                 <TD>
-                  <Link to={`/collaborations/${c.id}`} className="font-medium hover:underline">
+                  <Link to={`/collaborations/${c.id}`} state={{ backgroundLocation: location }} className="font-semibold hover:underline">
                     {c.campaign?.title ?? 'Untitled campaign'}
                   </Link>
                   {c.cancellationRequest?.status === 'PENDING' && (
