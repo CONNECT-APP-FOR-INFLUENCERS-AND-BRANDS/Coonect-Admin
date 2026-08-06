@@ -8,7 +8,8 @@ import { Table, THead, TBody, TR, TH, TD } from '@/components/ui/table'
 import { Badge } from '@/components/ui/badge'
 import { Input } from '@/components/ui/input'
 import { Button } from '@/components/ui/button'
-import { CheckCircle2, Search, Trash2 } from 'lucide-react'
+import { PageHeader } from '@/components/ui/page-header'
+import { CheckCircle2, Search, Trash2, Users } from 'lucide-react'
 
 interface Data {
   getInfluencers: Influencer[]
@@ -40,16 +41,17 @@ export function Influencers() {
 
   return (
     <div className="flex flex-col gap-4">
-      <div className="flex items-center justify-between">
-        <div>
-          <h1 className="text-xl font-semibold">Influencers</h1>
-          <p className="text-sm text-muted-foreground">{data?.getInfluencers.length ?? 0} total influencers</p>
-        </div>
-        <div className="relative w-64">
-          <Search className="absolute left-2.5 top-2.5 h-4 w-4 text-muted-foreground" />
-          <Input placeholder="Search influencers…" value={query} onChange={(e) => setQuery(e.target.value)} className="pl-8" />
-        </div>
-      </div>
+      <PageHeader
+        icon={Users}
+        title="Influencers"
+        description={`${data?.getInfluencers.length ?? 0} total influencers`}
+        actions={
+          <div className="relative w-64">
+            <Search className="absolute left-2.5 top-2.5 h-4 w-4 text-muted-foreground" />
+            <Input placeholder="Search influencers…" value={query} onChange={(e) => setQuery(e.target.value)} className="pl-8" />
+          </div>
+        }
+      />
 
       {filtered.length === 0 ? (
         <EmptyState message="No influencers found." />
@@ -68,16 +70,16 @@ export function Influencers() {
           </THead>
           <TBody>
             {filtered.map((i) => (
-              <TR key={i.id} className="hover:bg-muted/50">
+              <TR key={i.id}>
                 <TD>
-                  <span className="flex items-center gap-2 font-medium">
+                  <span className="flex items-center gap-2 font-semibold">
                     {i.isVerified && <CheckCircle2 className="h-3.5 w-3.5 shrink-0 text-primary" />}
                     {i.name}
                   </span>
                   <div className="text-xs text-muted-foreground">{i.email}</div>
                 </TD>
                 <TD>
-                  <Badge tone="accent">{i.tier ?? '—'}</Badge>
+                  <Badge tone="neutral">{i.tier ?? '—'}</Badge>
                 </TD>
                 <TD>{(i.totalFollowers ?? 0).toLocaleString()}</TD>
                 <TD>{i.engagementRate ? `${i.engagementRate.toFixed(1)}%` : '—'}</TD>

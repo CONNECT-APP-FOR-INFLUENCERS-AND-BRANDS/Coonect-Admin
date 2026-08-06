@@ -5,7 +5,7 @@ import { cn } from '@/lib/utils'
 interface DialogProps {
   open: boolean
   onClose: () => void
-  title: string
+  title?: string
   children: ReactNode
   className?: string
 }
@@ -22,14 +22,25 @@ export function Dialog({ open, onClose, title, children, className }: DialogProp
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
-      <div className="absolute inset-0 bg-black/50" onClick={onClose} />
-      <div className={cn('relative z-10 w-full max-w-lg rounded-xl border border-border bg-card p-5 shadow-xl', className)}>
-        <div className="mb-4 flex items-center justify-between">
-          <h2 className="text-base font-semibold">{title}</h2>
-          <button onClick={onClose} className="rounded-md p-1 text-muted-foreground hover:bg-muted" aria-label="Close">
-            <X className="h-4 w-4" />
-          </button>
-        </div>
+      <div className="absolute inset-0 animate-fade-in bg-black/50" onClick={onClose} />
+      <div
+        className={cn(
+          'relative z-10 w-full max-w-lg animate-scale-in rounded-3xl bg-card p-7 shadow-[0_12px_32px_rgba(0,0,0,0.18)]',
+          className,
+        )}
+      >
+        {title && (
+          <div className="mb-4 flex items-center justify-between">
+            <h2 className="text-lg font-bold">{title}</h2>
+            <button
+              onClick={onClose}
+              className="rounded-full p-1.5 text-muted-foreground transition-colors hover:bg-muted hover:text-foreground"
+              aria-label="Close"
+            >
+              <X className="h-4 w-4" />
+            </button>
+          </div>
+        )}
         {children}
       </div>
     </div>
