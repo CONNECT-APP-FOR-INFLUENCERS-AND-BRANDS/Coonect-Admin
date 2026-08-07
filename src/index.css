@@ -21,6 +21,23 @@
   --warning: #8a6d00;
   --ring: #ff8383;
 
+  --status-pending: #fbf1e6;
+  --status-pending-foreground: #8a5a2b;
+  --status-negotiation: #fff1e0;
+  --status-negotiation-foreground: #b8590f;
+  --status-brief-sent: #f2e8fc;
+  --status-brief-sent-foreground: #7b3fb5;
+  --status-waiting-payment: #fce8e8;
+  --status-waiting-payment-foreground: #c62828;
+  --status-in-progress: #fff6d6;
+  --status-in-progress-foreground: #91720a;
+  --status-completed: #e5f4e8;
+  --status-completed-foreground: #2e7d32;
+  --status-revoked: #e9e9ea;
+  --status-revoked-foreground: #16161a;
+  --status-cancelled: #f7e2e2;
+  --status-cancelled-foreground: #7a1414;
+
   color-scheme: light;
 }
 
@@ -43,6 +60,23 @@
   --color-destructive-foreground: var(--destructive-foreground);
   --color-success: var(--success);
   --color-warning: var(--warning);
+
+  --color-status-pending: var(--status-pending);
+  --color-status-pending-foreground: var(--status-pending-foreground);
+  --color-status-negotiation: var(--status-negotiation);
+  --color-status-negotiation-foreground: var(--status-negotiation-foreground);
+  --color-status-brief-sent: var(--status-brief-sent);
+  --color-status-brief-sent-foreground: var(--status-brief-sent-foreground);
+  --color-status-waiting-payment: var(--status-waiting-payment);
+  --color-status-waiting-payment-foreground: var(--status-waiting-payment-foreground);
+  --color-status-in-progress: var(--status-in-progress);
+  --color-status-in-progress-foreground: var(--status-in-progress-foreground);
+  --color-status-completed: var(--status-completed);
+  --color-status-completed-foreground: var(--status-completed-foreground);
+  --color-status-revoked: var(--status-revoked);
+  --color-status-revoked-foreground: var(--status-revoked-foreground);
+  --color-status-cancelled: var(--status-cancelled);
+  --color-status-cancelled-foreground: var(--status-cancelled-foreground);
   --color-ring: var(--ring);
 
   --animate-fade-in-up: fade-in-up 0.5s cubic-bezier(0.16, 1, 0.3, 1) both;

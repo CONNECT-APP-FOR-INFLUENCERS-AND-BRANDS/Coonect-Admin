@@ -25,23 +25,38 @@ export function Badge({ className, tone = 'neutral', ...props }: HTMLAttributes<
 }
 
 const STATUS_TONE: Record<string, Tone> = {
-  PENDING: 'warning',
-  NEGOTIATION: 'warning',
-  ACCEPTED: 'accent',
-  BRIEF_SENT: 'accent',
-  BRIEF_FINALIZED: 'accent',
-  SCRIPT_SENT: 'accent',
-  WAITING_FOR_PAYMENT: 'warning',
-  IN_PROGRESS: 'accent',
-  COMPLETED: 'success',
-  REJECTED: 'destructive',
-  REVOKED: 'destructive',
-  CANCELLED: 'destructive',
   APPROVED: 'success',
   DENIED: 'destructive',
   REJECTED_VERIFICATION: 'destructive',
 }
 
+// Collaboration-status colors, per spec: waiting for payment = red, in progress = yellow,
+// completed = green, brief sent = purple, revoked = black (bold), cancelled = dark red,
+// pending = brown, negotiation = light orange. Solid tokens (no opacity/dark-mode math) so
+// contrast stays correct — this app only ships a light theme.
+const COLLAB_STATUS_STYLES: Record<string, string> = {
+  PENDING: 'bg-status-pending text-status-pending-foreground',
+  NEGOTIATION: 'bg-status-negotiation text-status-negotiation-foreground',
+  ACCEPTED: 'bg-accent text-accent-foreground',
+  BRIEF_SENT: 'bg-status-brief-sent text-status-brief-sent-foreground',
+  BRIEF_FINALIZED: 'bg-accent text-accent-foreground',
+  SCRIPT_SENT: 'bg-accent text-accent-foreground',
+  WAITING_FOR_PAYMENT: 'bg-status-waiting-payment text-status-waiting-payment-foreground',
+  IN_PROGRESS: 'bg-status-in-progress text-status-in-progress-foreground',
+  COMPLETED: 'bg-status-completed text-status-completed-foreground',
+  REJECTED: 'bg-destructive/10 text-destructive',
+  REVOKED: 'bg-status-revoked text-status-revoked-foreground font-bold',
+  CANCELLED: 'bg-status-cancelled text-status-cancelled-foreground',
+}
+
 export function StatusBadge({ status }: { status: string }) {
+  const collabStyle = COLLAB_STATUS_STYLES[status]
+  if (collabStyle) {
+    return (
+      <span className={cn('inline-flex items-center rounded-full px-2.5 py-1 text-[11px] font-semibold', collabStyle)}>
+        {status.replaceAll('_', ' ')}
+      </span>
+    )
+  }
   return <Badge tone={STATUS_TONE[status] ?? 'neutral'}>{status.replaceAll('_', ' ')}</Badge>
 }

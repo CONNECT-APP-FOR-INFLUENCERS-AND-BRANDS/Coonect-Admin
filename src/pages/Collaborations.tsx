@@ -69,7 +69,6 @@ export function Collaborations() {
           <THead>
             <TR>
               <TH>Campaign</TH>
-              <TH>Brand</TH>
               <TH>Influencer</TH>
               <TH>Status</TH>
               <TH>Amount</TH>
@@ -83,11 +82,11 @@ export function Collaborations() {
                   <Link to={`/collaborations/${c.id}`} state={{ backgroundLocation: location }} className="font-semibold hover:underline">
                     {c.campaign?.title ?? 'Untitled campaign'}
                   </Link>
+                  <div className="mt-0.5 text-xs text-muted-foreground">{c.brand?.name ?? '—'}</div>
                   {c.cancellationRequest?.status === 'PENDING' && (
                     <div className="mt-0.5 text-xs font-medium text-warning">Cancellation pending review</div>
                   )}
                 </TD>
-                <TD>{c.brand?.name ?? '—'}</TD>
                 <TD>{c.influencer?.name ?? '—'}</TD>
                 <TD>
                   <StatusBadge status={c.status} />
